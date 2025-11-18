@@ -7,7 +7,7 @@ from datetime import datetime
 
 from database import db, create_document, get_documents
 
-app = FastAPI(title="ZenSupply API", version="1.0.0")
+app = FastAPI(title="ZenSupply API", version="1.1.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -26,6 +26,8 @@ class OrderItem(BaseModel):
     name: str
     price: float
     quantity: int = Field(ge=1)
+    variant_id: Optional[str] = None
+    variant_label: Optional[str] = None
 
 class CreateOrderRequest(BaseModel):
     minecraft_username: str = Field(..., description="In-game name")
@@ -38,6 +40,8 @@ class CreateOrderRequest(BaseModel):
 # ---------------------------
 # Utility
 # ---------------------------
+WANTED_TITLES = ["Skeleton Spawner", "Money", "Elytra"]
+
 DEFAULT_PRODUCTS = [
     {
         "title": "Skeleton Spawner",
@@ -46,30 +50,30 @@ DEFAULT_PRODUCTS = [
         "category": "Spawners",
         "image": "/assets/skeleton-spawner.png",
         "badge": "Popular",
+        "in_stock": True,
+        # Variants: single unit or full shulker bundle
+        "variants": [
+            {"id": "single", "label": "Single", "unit_price": 14.99},
+            {"id": "shulker", "label": "Shulker (27x)", "bundle_qty": 27, "bundle_price": 349.99},
+        ],
     },
     {
-        "title": "Money • 5M",
-        "description": "Instantly boost your balance with 5 million in-game cash.",
+        "title": "Money",
+        "description": "In-game currency to boost your balance.",
         "price": 9.99,
         "category": "Money",
         "image": "/assets/money-5m.png",
         "badge": "Best value",
+        "in_stock": True,
     },
     {
-        "title": "Money • 10M",
-        "description": "Big bankroll: ten million to dominate the economy.",
-        "price": 17.99,
-        "category": "Money",
-        "image": "/assets/money-10m.png",
+        "title": "Elytra",
+        "description": "Soar across the map with a pristine Elytra.",
+        "price": 19.99,
+        "category": "Gear",
+        "image": "/assets/elytra.png",
         "badge": None,
-    },
-    {
-        "title": "Mob Coin Bundle",
-        "description": "1,000 mob coins for special upgrades and perks.",
-        "price": 7.99,
-        "category": "Currency",
-        "image": "/assets/mob-coins.png",
-        "badge": None,
+        "in_stock": True,
     },
 ]
 
@@ -78,18 +82,11 @@ def ensure_seed_products():
     if db is None:
         return
     try:
-        existing = list(db.product.find().limit(1))
-        if not existing:
-            for p in DEFAULT_PRODUCTS:
-                create_document("product", {
-                    "title": p["title"],
-                    "description": p["description"],
-                    "price": p["price"],
-                    "category": p["category"],
-                    "image": p.get("image"),
-                    "badge": p.get("badge"),
-                    "in_stock": True,
-                })
+        # Ensure each wanted product exists; insert if missing
+        titles_in_db = set(p.get("title") for p in db.product.find({}, {"title": 1}))
+        for prod in DEFAULT_PRODUCTS:
+            if prod["title"] not in titles_in_db:
+                create_document("product", prod)
     except Exception:
         pass
 
@@ -106,7 +103,7 @@ def read_root():
 def list_products():
     ensure_seed_products()
     try:
-        products = get_documents("product", {})
+        products = list(db.product.find({"title": {"$in": WANTED_TITLES}})) if db is not None else []
         # Convert ObjectId to string
         for p in products:
             if "_id" in p:
