@@ -7,7 +7,7 @@ from datetime import datetime
 
 from database import db, create_document, get_documents
 
-app = FastAPI(title="ZenSupply API", version="1.1.0")
+app = FastAPI(title="ZenSupply API", version="1.2.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -36,31 +36,42 @@ class CreateOrderRequest(BaseModel):
     items: List[OrderItem]
     notes: Optional[str] = None
 
+class FeedbackPayload(BaseModel):
+    rating: int = Field(..., ge=1, le=5, description="Star rating 1-5")
+    comment: Optional[str] = Field(None, description="Optional feedback text")
+    minecraft_username: Optional[str] = None
+
 
 # ---------------------------
 # Utility
 # ---------------------------
 WANTED_TITLES = ["Skeleton Spawner", "Money", "Elytra"]
 
+# Pricing (USD)
+PRICE_SPAWNER_UNIT = 0.025
+PRICE_SPAWNER_SHULKER = 40.0  # 27x bundle
+PRICE_MONEY_PER_MILLION = 0.03
+PRICE_ELYTRA = 12.0
+
 DEFAULT_PRODUCTS = [
     {
         "title": "Skeleton Spawner",
         "description": "Placeable spawner for efficient bone and arrow farms.",
-        "price": 14.99,
+        "price": PRICE_SPAWNER_UNIT,
         "category": "Spawners",
         "image": "/assets/skeleton-spawner.png",
         "badge": "Popular",
         "in_stock": True,
         # Variants: single unit or full shulker bundle
         "variants": [
-            {"id": "single", "label": "Single", "unit_price": 14.99},
-            {"id": "shulker", "label": "Shulker (27x)", "bundle_qty": 27, "bundle_price": 349.99},
+            {"id": "single", "label": "Single", "unit_price": PRICE_SPAWNER_UNIT},
+            {"id": "shulker", "label": "Shulker (27x)", "bundle_qty": 27, "bundle_price": PRICE_SPAWNER_SHULKER},
         ],
     },
     {
         "title": "Money",
-        "description": "In-game currency to boost your balance.",
-        "price": 9.99,
+        "description": "In-game currency to boost your balance (priced per 1M).",
+        "price": PRICE_MONEY_PER_MILLION,
         "category": "Money",
         "image": "/assets/money-5m.png",
         "badge": "Best value",
@@ -69,7 +80,7 @@ DEFAULT_PRODUCTS = [
     {
         "title": "Elytra",
         "description": "Soar across the map with a pristine Elytra.",
-        "price": 19.99,
+        "price": PRICE_ELYTRA,
         "category": "Gear",
         "image": "/assets/elytra.png",
         "badge": None,
@@ -87,6 +98,12 @@ def ensure_seed_products():
         for prod in DEFAULT_PRODUCTS:
             if prod["title"] not in titles_in_db:
                 create_document("product", prod)
+            else:
+                # Optional: update pricing/variants to keep in sync
+                try:
+                    db.product.update_one({"title": prod["title"]}, {"$set": prod})
+                except Exception:
+                    pass
     except Exception:
         pass
 
@@ -132,6 +149,21 @@ def create_order(payload: CreateOrderRequest):
     try:
         order_id = create_document("order", order_doc)
         return {"order_id": order_id, "status": "received"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/feedback")
+def submit_feedback(payload: FeedbackPayload):
+    doc = {
+        "rating": payload.rating,
+        "comment": payload.comment,
+        "minecraft_username": payload.minecraft_username,
+        "created_at": datetime.utcnow(),
+    }
+    try:
+        fb_id = create_document("feedback", doc)
+        return {"feedback_id": fb_id, "status": "received"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
