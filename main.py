@@ -1,13 +1,13 @@
 import os
 from typing import List, Optional
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from datetime import datetime
 
 from database import db, create_document, get_documents
 
-app = FastAPI(title="ZenSupply API", version="1.2.0")
+app = FastAPI(title="ZenSupply API", version="1.3.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -164,6 +164,22 @@ def submit_feedback(payload: FeedbackPayload):
     try:
         fb_id = create_document("feedback", doc)
         return {"feedback_id": fb_id, "status": "received"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/feedbacks")
+def list_feedbacks(min_rating: int = Query(4, ge=1, le=5), limit: int = Query(100, ge=1, le=500)):
+    """Return feedback entries with rating >= min_rating, newest first."""
+    try:
+        if db is None:
+            return {"items": []}
+        cursor = db.feedback.find({"rating": {"$gte": min_rating}}).sort("created_at", -1).limit(limit)
+        items = []
+        for f in cursor:
+            f["id"] = str(f.pop("_id")) if "_id" in f else None
+            items.append(f)
+        return {"items": items}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
