@@ -1,31 +1,30 @@
 INFO:     Will watch for changes in these directories: ['/home/workspace']
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-INFO:     Started reloader process [445] using StatReload
-INFO:     Started server process [447]
+INFO:     Started reloader process [491] using StatReload
+INFO:     Started server process [493]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
-INFO:     172.20.0.1:41824 - "HEAD / HTTP/1.1" 405 Method Not Allowed
-INFO:     172.20.0.1:41814 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:41808 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:41814 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:41808 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:41814 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:41808 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:41814 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:41808 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:41814 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:41808 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:41814 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:41808 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:41814 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:41814 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:41814 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:41814 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:41814 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:41814 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:51014 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:51014 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:51014 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:51014 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:51014 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:51014 - "GET /products HTTP/1.1" 200 OK
+INFO:     172.20.0.1:36584 - "GET /products HTTP/1.1" 200 OK
+INFO:     172.20.0.1:36590 - "GET /products HTTP/1.1" 200 OK
+INFO:     172.20.0.1:36584 - "GET /products HTTP/1.1" 200 OK
+INFO:     172.20.0.1:36602 - "HEAD / HTTP/1.1" 405 Method Not Allowed
+INFO:     172.20.0.1:36590 - "GET /products HTTP/1.1" 200 OK
+INFO:     172.20.0.1:36584 - "GET /products HTTP/1.1" 200 OK
+INFO:     172.20.0.1:36590 - "GET /products HTTP/1.1" 200 OK
+INFO:     172.20.0.1:36584 - "GET /products HTTP/1.1" 200 OK
+INFO:     172.20.0.1:36590 - "GET /products HTTP/1.1" 200 OK
+INFO:     172.20.0.1:36584 - "GET /products HTTP/1.1" 200 OK
+INFO:     172.20.0.1:36590 - "GET /products HTTP/1.1" 200 OK
+INFO:     172.20.0.1:36590 - "GET /products HTTP/1.1" 200 OK
+INFO:     172.20.0.1:36610 - "GET /products HTTP/1.1" 200 OK
+INFO:     172.20.0.1:36590 - "GET /products HTTP/1.1" 200 OK
+INFO:     172.20.0.1:36610 - "GET /products HTTP/1.1" 200 OK
+INFO:     172.20.0.1:36590 - "GET /products HTTP/1.1" 200 OK
+INFO:     172.20.0.1:36610 - "GET /products HTTP/1.1" 200 OK
+INFO:     172.20.0.1:36590 - "GET /products HTTP/1.1" 200 OK
+INFO:     172.20.0.1:36610 - "GET /products HTTP/1.1" 200 OK
+INFO:     172.20.0.1:36590 - "GET /products HTTP/1.1" 200 OK
+INFO:     172.20.0.1:36610 - "GET /products HTTP/1.1" 200 OK
+INFO:     172.20.0.1:36590 - "GET /products HTTP/1.1" 200 OK
+INFO:     172.20.0.1:36610 - "GET /products HTTP/1.1" 200 OK
+INFO:     172.20.0.1:36590 - "GET /products HTTP/1.1" 200 OK
