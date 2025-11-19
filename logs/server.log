@@ -1,36 +1,19 @@
 INFO:     Will watch for changes in these directories: ['/home/workspace']
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-INFO:     Started reloader process [505] using StatReload
-INFO:     Started server process [507]
+INFO:     Started reloader process [120] using StatReload
+INFO:     Started server process [122]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
-INFO:     172.20.0.1:42758 - "HEAD / HTTP/1.1" 405 Method Not Allowed
-INFO:     172.20.0.1:42770 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:42776 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:42770 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:42776 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:42770 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:42776 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:42770 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:42776 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:55616 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:55616 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:55624 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:55616 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:42532 - "GET /feedbacks?min_rating=4 HTTP/1.1" 200 OK
-INFO:     172.20.0.1:42790 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:42790 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:42790 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:42532 - "OPTIONS /feedback HTTP/1.1" 200 OK
-INFO:     172.20.0.1:42532 - "POST /feedback HTTP/1.1" 200 OK
-INFO:     172.20.0.1:42790 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:42532 - "GET /feedbacks?min_rating=4 HTTP/1.1" 200 OK
-INFO:     172.20.0.1:42532 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:42532 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:41950 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:42532 - "GET /products HTTP/1.1" 200 OK
-INFO:     172.20.0.1:41950 - "GET /feedbacks?min_rating=4 HTTP/1.1" 200 OK
-INFO:     172.20.0.1:41950 - "POST /feedback HTTP/1.1" 200 OK
-INFO:     172.20.0.1:41950 - "POST /feedback HTTP/1.1" 200 OK
-INFO:     172.20.0.1:41950 - "POST /feedback HTTP/1.1" 200 OK
-INFO:     172.20.0.1:41950 - "GET /feedbacks?min_rating=4 HTTP/1.1" 200 OK
+INFO:     172.20.0.1:51256 - "GET /products HTTP/1.1" 200 OK
+INFO:     172.20.0.1:51264 - "GET /products HTTP/1.1" 200 OK
+INFO:     172.20.0.1:51266 - "HEAD / HTTP/1.1" 405 Method Not Allowed
+INFO:     172.20.0.1:51256 - "GET /products HTTP/1.1" 200 OK
+INFO:     172.20.0.1:51264 - "GET /products HTTP/1.1" 200 OK
+INFO:     172.20.0.1:51256 - "GET /products HTTP/1.1" 200 OK
+INFO:     172.20.0.1:51264 - "GET /products HTTP/1.1" 200 OK
+INFO:     172.20.0.1:51256 - "GET /products HTTP/1.1" 200 OK
+INFO:     172.20.0.1:51264 - "GET /products HTTP/1.1" 200 OK
+INFO:     172.20.0.1:51264 - "GET /products HTTP/1.1" 200 OK
+INFO:     172.20.0.1:51264 - "GET /products HTTP/1.1" 200 OK
+INFO:     172.20.0.1:51264 - "GET /products HTTP/1.1" 200 OK
+INFO:     172.20.0.1:51264 - "GET /products HTTP/1.1" 200 OK
